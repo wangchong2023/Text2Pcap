@@ -1,0 +1,4 @@
+#ifndef THIRDPART_HEADER_H
+#define THIRDPART_HEADER_H
+
+#endif // THIRDPART_HEADER_H

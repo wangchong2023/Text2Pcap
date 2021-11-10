@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Text2PcapWidget</class>
+ <widget class="QWidget" name="Text2PcapWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>报文解析工具</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/icons/app/icons/Design.icns</normaloff>:/icons/app/icons/Design.icns</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_ParsePacket">
+      <attribute name="title">
+       <string>报文解析</string>
+      </attribute>
+      <widget class="QGroupBox" name="groupBox_Parse_Params">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>751</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>解析参数</string>
+       </property>
+       <widget class="QRadioButton" name="radioButton_Pad_LinkLayer">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ethernet</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Pad_IPv4Layer">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>160</y>
+          <width>51</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>IPv4</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Pad_UDPLayer">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>190</y>
+          <width>53</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>UDP</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Pad_TCPLayer">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>220</y>
+          <width>50</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TCP</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_No_Pad">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>100</y>
+          <width>65</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>不填充</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_Link_Type_Value">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>130</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="maxLength">
+         <number>4</number>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_Pad_Eth">
+        <property name="geometry">
+         <rect>
+          <x>102</x>
+          <y>130</y>
+          <width>68</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>16进制类型</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_UDP_Src_Port">
+        <property name="geometry">
+         <rect>
+          <x>117</x>
+          <y>190</y>
+          <width>53</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>源端口号</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_TCP_Dst_Port">
+        <property name="geometry">
+         <rect>
+          <x>393</x>
+          <y>220</y>
+          <width>67</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>目的端口号</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_UDP_Src_Port_Value">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>190</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="maxLength">
+         <number>5</number>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_TCP_Dst_Port_Value">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>220</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="maxLength">
+         <number>5</number>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_Pad_Layer">
+        <property name="geometry">
+         <rect>
+          <x>12</x>
+          <y>60</y>
+          <width>53</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>填充层</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_Pad_Type">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>60</y>
+          <width>41</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>填充项</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_Pad_Value">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>60</y>
+          <width>40</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>填充值</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_IPv4_Proto_Num_Value">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>160</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="maxLength">
+         <number>3</number>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_Proto_Num">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>160</y>
+          <width>41</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>协议号</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Ethernet">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>30</y>
+          <width>71</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>以太网</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_LinkLayerType">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>链路层类型：</string>
+        </property>
+       </widget>
+       <widget class="Line" name="line_Pad">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>601</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_UDP_Dst_Port_Value">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>190</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="maxLength">
+         <number>5</number>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_UDP_Dst_Port">
+        <property name="geometry">
+         <rect>
+          <x>393</x>
+          <y>190</y>
+          <width>67</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>目的端口号</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_TCP_Src_Port_Value">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>220</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="maxLength">
+         <number>5</number>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_TCP_Src_Port">
+        <property name="geometry">
+         <rect>
+          <x>117</x>
+          <y>220</y>
+          <width>53</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>源端口号</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_PacketContent">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>270</y>
+         <width>751</width>
+         <height>221</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>报文内容</string>
+       </property>
+       <widget class="QTextEdit" name="textEdit_PacketContent">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>60</y>
+          <width>711</width>
+          <height>151</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Packet_Content_Pad_Hex_Stream">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>16进制数据格式</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Packet_Content_Pad_Hex_Dump">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>30</y>
+          <width>181</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>16进制Hex Dump数据格式</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="pushButton_ParsePacket">
+       <property name="geometry">
+        <rect>
+         <x>189</x>
+         <y>500</y>
+         <width>135</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>解析并打开报文</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_clearPacket">
+       <property name="geometry">
+        <rect>
+         <x>326</x>
+         <y>500</y>
+         <width>122</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>清空报文内容</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_CopyPacket2ClipBoard">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>500</y>
+         <width>148</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>拷贝报文到粘贴板</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab_SysSetting">
+      <attribute name="title">
+       <string>系统设置</string>
+      </attribute>
+      <widget class="QGroupBox" name="groupBox_SysSetting_Path">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>751</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>路径设置</string>
+       </property>
+       <widget class="QLabel" name="label_WiresharkPath">
+        <property name="geometry">
+         <rect>
+          <x>13</x>
+          <y>50</y>
+          <width>127</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Wireshark程序路径：</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_WiresharkPath">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>40</y>
+          <width>541</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QToolButton" name="toolButton_BrowserWiresharkPath">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>40</y>
+          <width>26</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_CapStoragePath">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>80</y>
+          <width>541</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_CapStoragePath">
+        <property name="geometry">
+         <rect>
+          <x>17</x>
+          <y>80</y>
+          <width>123</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string> 解析文件存放路径：</string>
+        </property>
+       </widget>
+       <widget class="QToolButton" name="toolButton_BrowserCapStoragePath">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>80</y>
+          <width>26</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_SysSetting_Output">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>751</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>输出格式</string>
+       </property>
+       <widget class="QLabel" name="label_Output_Format">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>121</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>输出格式：</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Output_Format_Pcap">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>40</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>pcap格式</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_Output_Format_PcapNG">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>40</y>
+          <width>91</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>pcapng格式</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="pushButton_SaveConfig">
+       <property name="geometry">
+        <rect>
+         <x>213</x>
+         <y>290</y>
+         <width>95</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>保存配置</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_CleanAllCapFiles">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>290</y>
+         <width>211</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>清空解析文件路径下的抓包文件</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab_About">
+      <attribute name="title">
+       <string>关于</string>
+      </attribute>
+      <widget class="QGroupBox" name="groupBox_SysSetting_Contact">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>751</width>
+         <height>131</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>联系信息</string>
+       </property>
+       <widget class="QLabel" name="label_Author">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>41</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>作者 ：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_Email">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>41</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>邮箱 ：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_QQ">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>100</y>
+          <width>41</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>QQ   ：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_AuthorValue">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>40</y>
+          <width>101</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Constantine</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_EmailValue">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>70</y>
+          <width>141</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_QQValue">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>100</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>290200329</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_Version">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>170</y>
+         <width>751</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>作者信息</string>
+       </property>
+       <widget class="QLabel" name="label_Version">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>41</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>版本 ：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_Build">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>41</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>构建 ：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_VersionValue">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>40</y>
+          <width>141</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_BuildValue">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>70</y>
+          <width>141</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

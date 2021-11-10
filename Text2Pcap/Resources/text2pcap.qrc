@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/style/qss">
+        <file>qss/dark.qss</file>
+        <file>qss/light.qss</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>icons/app.icns</file>
+        <file>icons/app.ico</file>
+    </qresource>
+    <qresource prefix="/text/readme">
+        <file>text/README.txt</file>
+    </qresource>
+</RCC>
