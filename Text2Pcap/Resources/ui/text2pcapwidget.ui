@@ -144,7 +144,7 @@
        <widget class="QLabel" name="label_Pad_Eth">
         <property name="geometry">
          <rect>
-          <x>111</x>
+          <x>120</x>
           <y>131</y>
           <width>68</width>
           <height>16</height>
@@ -234,7 +234,7 @@
        <widget class="QLabel" name="label_Pad_Type">
         <property name="geometry">
          <rect>
-          <x>120</x>
+          <x>140</x>
           <y>60</y>
           <width>41</width>
           <height>16</height>
