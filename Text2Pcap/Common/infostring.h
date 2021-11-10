@@ -30,6 +30,7 @@
 /* ToolTip信息 */
 #define INFO_STRING_TOOLTIP_PARSE_ETHERNET       tr("大多数场景下报文都是以太网类型的帧格式")
 #define INFO_STRING_TOOLTIP_TYPE_NO_PAD          tr("不填充")
+#define INFO_STRING_TOOLTIP_TYPE_PAD_LINK        tr("填充以太层信息")
 #define INFO_STRING_TOOLTIP_TYPE_PAD_IP          tr("填充IP层信息")
 #define INFO_STRING_TOOLTIP_TYPE_PAD_TCP         tr("填充TCP传输层信息")
 #define INFO_STRING_TOOLTIP_TYPE_PAD_UDP         tr("填充UDP传输层信息")

@@ -24,6 +24,8 @@ void Initialize::LoadControl(Text2PcapWidget *win) {
 
     Ui::Text2PcapWidget *ui = win->ui;
 
+    ui->textEdit_PacketContent->setFocus();
+
     ui->label_EmailValue->setOpenExternalLinks(true);
     ui->label_EmailValue->setText(UI_RES_STRING_DEFAULT_EMAIL_HREF);
 
@@ -60,6 +62,7 @@ void Initialize::LoadControl(Text2PcapWidget *win) {
 
     ui->radioButton_Ethernet->setToolTip(INFO_STRING_TOOLTIP_PARSE_ETHERNET);
     ui->radioButton_No_Pad->setToolTip(INFO_STRING_TOOLTIP_TYPE_NO_PAD);
+    ui->radioButton_Pad_LinkLayer->setToolTip(INFO_STRING_TOOLTIP_TYPE_PAD_LINK);
     ui->radioButton_Pad_IPv4Layer->setToolTip(INFO_STRING_TOOLTIP_TYPE_PAD_IP);
     ui->radioButton_Pad_TCPLayer->setToolTip(INFO_STRING_TOOLTIP_TYPE_PAD_TCP);
     ui->radioButton_Pad_UDPLayer->setToolTip(INFO_STRING_TOOLTIP_TYPE_PAD_UDP);

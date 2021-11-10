@@ -234,7 +234,7 @@
        <widget class="QLabel" name="label_Pad_Type">
         <property name="geometry">
          <rect>
-          <x>130</x>
+          <x>120</x>
           <y>60</y>
           <width>41</width>
           <height>16</height>
@@ -485,12 +485,12 @@
         <rect>
          <x>450</x>
          <y>500</y>
-         <width>148</width>
+         <width>161</width>
          <height>32</height>
         </rect>
        </property>
        <property name="text">
-        <string>拷贝报文到粘贴板</string>
+        <string>拷贝报文内容到粘贴板</string>
        </property>
       </widget>
      </widget>
