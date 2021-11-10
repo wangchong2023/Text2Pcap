@@ -144,8 +144,8 @@
        <widget class="QLabel" name="label_Pad_Eth">
         <property name="geometry">
          <rect>
-          <x>102</x>
-          <y>130</y>
+          <x>111</x>
+          <y>131</y>
           <width>68</width>
           <height>16</height>
          </rect>
@@ -157,7 +157,7 @@
        <widget class="QLabel" name="label_UDP_Src_Port">
         <property name="geometry">
          <rect>
-          <x>117</x>
+          <x>126</x>
           <y>190</y>
           <width>53</width>
           <height>16</height>
@@ -279,9 +279,9 @@
        <widget class="QLabel" name="label_Proto_Num">
         <property name="geometry">
          <rect>
-          <x>130</x>
+          <x>139</x>
           <y>160</y>
-          <width>41</width>
+          <width>40</width>
           <height>16</height>
          </rect>
         </property>
@@ -385,7 +385,7 @@
        <widget class="QLabel" name="label_TCP_Src_Port">
         <property name="geometry">
          <rect>
-          <x>117</x>
+          <x>126</x>
           <y>220</y>
           <width>53</width>
           <height>16</height>
