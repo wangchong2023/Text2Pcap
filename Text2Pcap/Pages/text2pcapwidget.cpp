@@ -295,14 +295,8 @@ void Text2PcapWidget::on_pushButton_CleanAllCapFiles_clicked()
         return;
     }
 
-    QMessageBox::StandardButton msgBox;
-    msgBox = QMessageBox::question(this, UI_RES_CONTROL_MESSAGEBOX_WARNING, INFO_STRING_CONFIRM_DEL_PCAP_DIR, QMessageBox::Yes | QMessageBox::No);
-    if (msgBox == QMessageBox::No) {
-        return;
-    }
-
-    uint32_t filesNum = FileUtils::deleteFilesBySuffix(storagePath, FILE_EXTENTION_PCAP);
-    filesNum += FileUtils::deleteFilesBySuffix(storagePath, FILE_EXTENTION_PCAPNG);
+    uint32_t filesNum = FileUtils::moveFiles2TrashBySuffix(storagePath, FILE_EXTENTION_PCAP);
+    filesNum += FileUtils::moveFiles2TrashBySuffix(storagePath, FILE_EXTENTION_PCAPNG);
     QMessageBox::information(this, UI_RES_CONTROL_MESSAGEBOX_INFO, QString::asprintf(INFO_STRING_DEL_PCAP_DIR_OK, filesNum));
 }
 
@@ -417,7 +411,6 @@ void Text2PcapWidget::on_pushButton_CopyPacket2ClipBoard_clicked()
 {
     QString packetContent = ui->textEdit_PacketContent->toPlainText();
     QClipboard *clipboard = QApplication::clipboard();
-    QString originalText = clipboard->text();
     clipboard->setText(packetContent);
 }
 

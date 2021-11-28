@@ -26,8 +26,7 @@ public:
     static QString getAppAbsoluteByPath(QString appPath);
     static void writeText2File(QString textPath, QString text);
     static void deleteFile(QString filePath);
-    static uint32_t deleteFilesBySuffix(QString dirPath, QString suffix);
-    static void deleteDirAndSubFiles(QString dirPath);
+    static uint32_t moveFiles2TrashBySuffix(QString dirPath, QString suffix);
 
 signals:
 

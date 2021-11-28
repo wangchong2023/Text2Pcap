@@ -20,8 +20,7 @@
 #define INFO_STRING_PACKET_CONTENT_TRIM_EMPTY     tr("报文内容去除空格后为空，请重新输入。")
 #define INFO_STRING_PACKET_LENGTH_EXCEED          tr("报文内容过大（超过64K），请重新输入。")
 #define INFO_STRING_PACKET_CONTENT_INVALID        tr("报文内容报文包含非法字符（非16进制字符），请重新输入。")
-#define INFO_STRING_CONFIRM_DEL_PCAP_DIR          tr("此操作将会删除本目录下的所有.pcap和.pcapng文件，请确认是否执行此操作？")
-#define INFO_STRING_DEL_PCAP_DIR_OK              "删除完成。共计删除%d个文件。"
+#define INFO_STRING_DEL_PCAP_DIR_OK              "共计移动%d个文件到回收站。"
 
 #define INFO_STRING_PARSE_PARAMS_INVALID          tr("停止解析，解析参数非法。")
 #define INFO_STRING_PARSE_TEXT2PCAP_RETRY_EXCEED  tr("停止解析，超出最大Text2Pcap启动次数。")

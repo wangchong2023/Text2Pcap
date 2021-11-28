@@ -129,7 +129,7 @@ void FileUtils::deleteFile(QString filePath) {
     QFile::remove(filePath);
 }
 
-uint32_t FileUtils::deleteFilesBySuffix(QString dirPath, QString suffix) {
+uint32_t FileUtils::moveFiles2TrashBySuffix(QString dirPath, QString suffix) {
     if ((dirPath.isEmpty()) || (dirPath.isEmpty())) {
         qWarning("DirPath is empty.");
         return 0;
@@ -139,23 +139,10 @@ uint32_t FileUtils::deleteFilesBySuffix(QString dirPath, QString suffix) {
     uint32_t fileCount = 0;
     foreach (QFileInfo fileInfo, dir.entryInfoList()){
         if (fileInfo.isFile() && (fileInfo.suffix() == suffix)) {
-            dir.remove(fileInfo.fileName());
+            QFile::moveToTrash(fileInfo.filePath());
             fileCount++;
         }
     }
 
     return fileCount;
 }
-
-void FileUtils::deleteDirAndSubFiles(QString dirPath) {
-    if ((dirPath.isEmpty()) || (dirPath.isEmpty())) {
-        qWarning("DirPath is empty.");
-        return;
-    }
-
-    QString dirPathString = QString(dirPath);
-    QDir dir;
-    dir.setPath(dirPathString);
-    dir.removeRecursively();
-}
-
