@@ -61,12 +61,12 @@
 #define TEXT2PCAP_OPT_TCP_PORT      "-T "
 #define TEXT2PCAP_OPT_UDP_PORT      "-u "
 
-#define PAD_TYPE_NONE           0
-#define PAD_TYPE_LINK           1
-#define PAD_TYPE_IPV4           2
-#define PAD_TYPE_IPV6           3
-#define PAD_TYPE_TCP            4
-#define PAD_TYPE_UDP            5
+#define PACKET_PAD_TYPE_NONE           0
+#define PACKET_PAD_TYPE_LINK           1
+#define PACKET_PAD_TYPE_IPV4           2
+#define PACKET_PAD_TYPE_IPV6           3
+#define PACKET_PAD_TYPE_TCP            4
+#define PACKET_PAD_TYPE_UDP            5
 
 #define LINK_TYPE_ETH           1
 #define LINK_TYPE_ETH_IPV4      0X0800

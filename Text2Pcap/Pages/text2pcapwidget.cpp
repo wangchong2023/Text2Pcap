@@ -321,7 +321,7 @@ void Text2PcapWidget::on_radioButton_No_Pad_clicked()
     ui->lineEdit_UDP_Src_Port_Value->setDisabled(true);
     ui->lineEdit_UDP_Dst_Port_Value->setDisabled(true);
 
-    m_parseConfig.padType = PAD_TYPE_NONE;
+    m_parseConfig.padType = PACKET_PAD_TYPE_NONE;
 }
 
 void Text2PcapWidget::on_radioButton_Pad_LinkLayer_clicked()
@@ -333,7 +333,7 @@ void Text2PcapWidget::on_radioButton_Pad_LinkLayer_clicked()
     ui->lineEdit_UDP_Src_Port_Value->setDisabled(true);
     ui->lineEdit_UDP_Dst_Port_Value->setDisabled(true);
 
-    m_parseConfig.padType = PAD_TYPE_LINK;
+    m_parseConfig.padType = PACKET_PAD_TYPE_LINK;
 }
 
 void Text2PcapWidget::on_radioButton_Pad_IPv4Layer_clicked()
@@ -345,7 +345,7 @@ void Text2PcapWidget::on_radioButton_Pad_IPv4Layer_clicked()
     ui->lineEdit_UDP_Src_Port_Value->setDisabled(true);
     ui->lineEdit_UDP_Dst_Port_Value->setDisabled(true);
 
-    m_parseConfig.padType = PAD_TYPE_IPV4;
+    m_parseConfig.padType = PACKET_PAD_TYPE_IPV4;
 }
 
 void Text2PcapWidget::on_radioButton_Pad_IPv6Layer_clicked()
@@ -357,7 +357,7 @@ void Text2PcapWidget::on_radioButton_Pad_IPv6Layer_clicked()
     ui->lineEdit_UDP_Src_Port_Value->setDisabled(true);
     ui->lineEdit_UDP_Dst_Port_Value->setDisabled(true);
 
-    m_parseConfig.padType = PAD_TYPE_IPV6;
+    m_parseConfig.padType = PACKET_PAD_TYPE_IPV6;
 }
 
 void Text2PcapWidget::on_radioButton_Pad_UDPLayer_clicked()
@@ -369,7 +369,7 @@ void Text2PcapWidget::on_radioButton_Pad_UDPLayer_clicked()
     ui->lineEdit_UDP_Src_Port_Value->setDisabled(false);
     ui->lineEdit_UDP_Dst_Port_Value->setDisabled(false);
 
-    m_parseConfig.padType = PAD_TYPE_UDP;
+    m_parseConfig.padType = PACKET_PAD_TYPE_UDP;
 }
 
 void Text2PcapWidget::on_radioButton_Pad_TCPLayer_clicked()
@@ -381,7 +381,7 @@ void Text2PcapWidget::on_radioButton_Pad_TCPLayer_clicked()
     ui->lineEdit_UDP_Src_Port_Value->setDisabled(true);
     ui->lineEdit_UDP_Dst_Port_Value->setDisabled(true);
 
-    m_parseConfig.padType = PAD_TYPE_TCP;
+    m_parseConfig.padType = PACKET_PAD_TYPE_TCP;
 }
 
 void Text2PcapWidget::on_radioButton_Packet_Content_Pad_Hex_Stream_clicked()

@@ -32,7 +32,7 @@ parse_info Text2Pcap::initParseInfo() {
     parse_info parseInfo;
 
     parseInfo.linkType = LINK_TYPE_ETH;
-    parseInfo.padType = PAD_TYPE_NONE;
+    parseInfo.padType = PACKET_PAD_TYPE_NONE;
     parseInfo.hexDump = false;
     parseInfo.saveFileSuffix = FILE_EXTENTION_PCAP;
     parseInfo.dateTime = QDateTime::currentDateTime();
@@ -188,16 +188,16 @@ void Text2Pcap::DecreaseTimerLoopTimes() {
 QString Text2Pcap::getText2PcapParamsByParseInfo() {
     QString strParam;
     switch (m_parseInfo.padType) {
-        case PAD_TYPE_NONE: {
+        case PACKET_PAD_TYPE_NONE: {
             break;
         }
         /* -e <l3pid> */
-        case PAD_TYPE_LINK: {
+        case PACKET_PAD_TYPE_LINK: {
             strParam = "-e " + QString::number(m_parseInfo.linkType, RADIX_HEX);
             break;
         }
         /* -i <proto> */
-        case PAD_TYPE_IPV4: {
+        case PACKET_PAD_TYPE_IPV4: {
             if (m_parseInfo.linkType == LINK_TYPE_ETH_IPV4) {
                 strParam = TEXT2PCAP_OPT_ETH + QString::number(m_parseInfo.linkType, RADIX_HEX)
                         + STRING_BLANK + TEXT2PCAP_OPT_IP_PRPOTO + QString::number(m_parseInfo.ipv4ProtoNum);
@@ -205,7 +205,7 @@ QString Text2Pcap::getText2PcapParamsByParseInfo() {
             break;
         }
         /* -i <proto> */
-        case PAD_TYPE_IPV6: {
+        case PACKET_PAD_TYPE_IPV6: {
             if (m_parseInfo.linkType == LINK_TYPE_ETH_IPV6) {
                 strParam = TEXT2PCAP_OPT_ETH +QString::number(m_parseInfo.linkType, RADIX_HEX)
                         + STRING_BLANK + TEXT2PCAP_OPT_IP_PRPOTO + QString::number(m_parseInfo.ipv6ProtoNum);
@@ -213,12 +213,12 @@ QString Text2Pcap::getText2PcapParamsByParseInfo() {
             break;
         }
         /* -T <srcport>，<destport> */
-        case PAD_TYPE_TCP: {
+        case PACKET_PAD_TYPE_TCP: {
             strParam = TEXT2PCAP_OPT_TCP_PORT + QString::number(m_parseInfo.srcPortNum) + STRING_COMMA + QString::number(m_parseInfo.dstPortNum);
             break;
         }
         /* -u <srcport>，<destport> */
-        case PAD_TYPE_UDP: {
+        case PACKET_PAD_TYPE_UDP: {
             strParam = TEXT2PCAP_OPT_UDP_PORT + QString::number(m_parseInfo.srcPortNum) + STRING_COMMA + QString::number(m_parseInfo.dstPortNum);
             break;
         }

@@ -664,7 +664,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>回收抓包文件</string>
+        <string>删除抓包文件</string>
        </property>
       </widget>
      </widget>
