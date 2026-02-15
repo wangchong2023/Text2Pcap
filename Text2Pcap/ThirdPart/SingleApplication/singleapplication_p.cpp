@@ -1,6 +1,4 @@
-// The MIT License (MIT)
-//
-// Copyright (c) Itay Grudev 2015 - 2020
+// Copyright (c) Itay Grudev 2015 - 2023
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -8,6 +6,9 @@
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
+//
+// Permission is not granted to use this software or any of the associated files
+// as sample data for the purposes of building machine learning models.
 //
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
@@ -130,24 +131,42 @@ QString SingleApplicationPrivate::getUsername()
 
 void SingleApplicationPrivate::genBlockServerName()
 {
+#ifdef Q_OS_MACOS
+    // Maximum key size on macOS is PSHMNAMLEN (31).
+    QCryptographicHash appData( QCryptographicHash::Md5 );
+#else
     QCryptographicHash appData( QCryptographicHash::Sha256 );
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 3, 0)
     appData.addData( "SingleApplication", 17 );
-    appData.addData( SingleApplication::app_t::applicationName().toUtf8() );
-    appData.addData( SingleApplication::app_t::organizationName().toUtf8() );
-    appData.addData( SingleApplication::app_t::organizationDomain().toUtf8() );
+#else
+    appData.addData( QByteArrayView{"SingleApplication"} );
+#endif
+    appData.addData( QCoreApplication::applicationName().toUtf8() );
+    appData.addData( QCoreApplication::organizationName().toUtf8() );
+    appData.addData( QCoreApplication::organizationDomain().toUtf8() );
 
     if ( ! appDataList.isEmpty() )
-        appData.addData( appDataList.join( "" ).toUtf8() );
+        appData.addData( appDataList.join(QString()).toUtf8() );
 
     if( ! (options & SingleApplication::Mode::ExcludeAppVersion) ){
-        appData.addData( SingleApplication::app_t::applicationVersion().toUtf8() );
+        appData.addData( QCoreApplication::applicationVersion().toUtf8() );
     }
 
     if( ! (options & SingleApplication::Mode::ExcludeAppPath) ){
-#ifdef Q_OS_WIN
-        appData.addData( SingleApplication::app_t::applicationFilePath().toLower().toUtf8() );
+#if defined(Q_OS_WIN)
+        appData.addData( QCoreApplication::applicationFilePath().toLower().toUtf8() );
+#elif defined(Q_OS_LINUX)
+        // If the application is running as an AppImage then the APPIMAGE env var should be used
+        // instead of applicationPath() as each instance is launched with its own executable path
+        const QByteArray appImagePath = qgetenv( "APPIMAGE" );
+        if( appImagePath.isEmpty() ){ // Not running as AppImage: use path to executable file
+            appData.addData( QCoreApplication::applicationFilePath().toUtf8() );
+        } else { // Running as AppImage: Use absolute path to AppImage file
+            appData.addData( appImagePath );
+        };
 #else
-        appData.addData( SingleApplication::app_t::applicationFilePath().toUtf8() );
+        appData.addData( QCoreApplication::applicationFilePath().toUtf8() );
 #endif
     }
 
@@ -158,7 +177,7 @@ void SingleApplicationPrivate::genBlockServerName()
 
     // Replace the backslash in RFC 2045 Base64 [a-zA-Z0-9+/=] to comply with
     // server naming requirements.
-    blockServerName = appData.result().toBase64().replace("/", "_");
+    blockServerName = QString::fromUtf8(appData.result().toBase64().replace("/", "_"));
 }
 
 void SingleApplicationPrivate::initializeMemoryBlock() const
@@ -257,7 +276,7 @@ bool SingleApplicationPrivate::connectToPrimary( int msecs, ConnectionType conne
     writeStream << static_cast<quint8>(connectionType);
     writeStream << instanceNumber;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    quint16 checksum = qChecksum(QByteArray(initMsg, static_cast<quint32>(initMsg.length())));
+    quint16 checksum = qChecksum(QByteArray(initMsg.constData(), static_cast<quint32>(initMsg.length())));
 #else
     quint16 checksum = qChecksum(initMsg.constData(), static_cast<quint32>(initMsg.length()));
 #endif
@@ -270,7 +289,7 @@ void SingleApplicationPrivate::writeAck( QLocalSocket *sock ) {
     sock->putChar('\n');
 }
 
-bool SingleApplicationPrivate::writeConfirmedMessage (int msecs, const QByteArray &msg)
+bool SingleApplicationPrivate::writeConfirmedMessage (int msecs, const QByteArray &msg, SingleApplication::SendMode sendMode)
 {
     QElapsedTimer time;
     time.start();
@@ -288,7 +307,13 @@ bool SingleApplicationPrivate::writeConfirmedMessage (int msecs, const QByteArra
         return false;
 
     // Frame 2: The message
-    return writeConfirmedFrame( static_cast<int>(msecs - time.elapsed()), msg );
+    const bool result = writeConfirmedFrame( static_cast<int>(msecs - time.elapsed()), msg );
+
+    // Block if needed
+    if (socket && sendMode == SingleApplication::BlockUntilPrimaryExit)
+        socket->waitForDisconnected(-1);
+
+    return result;
 }
 
 bool SingleApplicationPrivate::writeConfirmedFrame( int msecs, const QByteArray &msg )
@@ -459,7 +484,7 @@ void SingleApplicationPrivate::readInitMessageBody( QLocalSocket *sock )
     readStream >> msgChecksum;
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    const quint16 actualChecksum = qChecksum(QByteArray(msgBytes, static_cast<quint32>(msgBytes.length() - sizeof(quint16))));
+    const quint16 actualChecksum = qChecksum(QByteArray(msgBytes.constData(), static_cast<quint32>(msgBytes.length() - sizeof(quint16))));
 #else
     const quint16 actualChecksum = qChecksum(msgBytes.constData(), static_cast<quint32>(msgBytes.length() - sizeof(quint16)));
 #endif
@@ -494,12 +519,14 @@ void SingleApplicationPrivate::slotDataAvailable( QLocalSocket *dataSocket, quin
     if ( !isFrameComplete( dataSocket ) )
         return;
 
-    Q_EMIT q->receivedMessage( instanceId, dataSocket->readAll() );
+    const QByteArray message = dataSocket->readAll();
 
     writeAck( dataSocket );
 
     ConnectionInfo &info = connectionMap[dataSocket];
     info.stage = StageConnectedHeader;
+
+    Q_EMIT q->receivedMessage( instanceId, message);
 }
 
 void SingleApplicationPrivate::slotClientConnectionClosed( QLocalSocket *closedSocket, quint32 instanceId )

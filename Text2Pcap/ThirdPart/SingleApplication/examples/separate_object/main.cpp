@@ -26,21 +26,23 @@
 
 int main(int argc, char *argv[])
 {
-    // Allow secondary instances
-    SingleApplication app( argc, argv, true );
+    QCoreApplication app( argc, argv );
+
+    // Separate single instance object (that allows secondary instances)
+    SingleApplication single_instance_guard( argc, argv, true );
 
     MessageReceiver msgReceiver;
 
     // If this is a secondary instance
-    if( app.isSecondary() ) {
-        app.sendMessage( app.arguments().join(' ').toUtf8() );
+    if( single_instance_guard.isSecondary() ) {
+        single_instance_guard.sendMessage( app.arguments().join(' ').toUtf8() );
         qDebug() << "App already running.";
-        qDebug() << "Primary instance PID: " << app.primaryPid();
-        qDebug() << "Primary instance user: " << app.primaryUser();
+        qDebug() << "Primary instance PID: " << single_instance_guard.primaryPid();
+        qDebug() << "Primary instance user: " << single_instance_guard.primaryUser();
         return 0;
     } else {
         QObject::connect(
-            &app,
+            &single_instance_guard,
             &SingleApplication::receivedMessage,
             &msgReceiver,
             &MessageReceiver::receivedMessage
